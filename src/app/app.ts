@@ -1,11 +1,21 @@
-import { Component, signal } from '@angular/core';
+
+import { Component } from '@angular/core';
+import { MatTabsModule } from '@angular/material/tabs';
+
+import { TemplateForm } from './template-form/template-form';
+import { ReactiveForm } from './reactive-form/reactive-form';
 
 @Component({
-  imports: [],
   selector: 'app-root',
-  styleUrl: './app.css',
+  standalone: true,
+  imports: [
+    MatTabsModule,
+    TemplateForm,
+    ReactiveForm
+  ],
   templateUrl: './app.html',
+  styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('tp-angular-forms');
+  title = 'tp-angular-forms';
 }

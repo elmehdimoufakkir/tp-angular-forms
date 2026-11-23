@@ -1,0 +1,156 @@
+
+<mat-card class="form-card">
+
+  <mat-card-header>
+    <mat-card-title>
+      Inscription - Template Driven
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <form
+      #registrationForm="ngForm"
+      (ngSubmit)="onSubmit(registrationForm)"
+      novalidate
+    >
+
+      <!-- Nom complet -->
+      <mat-form-field appearance="outline" class="full-width">
+
+        <mat-label>Nom complet</mat-label>
+
+        <input
+          matInput
+          name="fullName"
+          [(ngModel)]="registration.fullName"
+          #fullName="ngModel"
+          required
+          minlength="3"
+          placeholder="Entrez votre nom complet"
+        />
+
+        <mat-error *ngIf="fullName.touched && fullName.errors?.['required']">
+          Le nom complet est obligatoire.
+        </mat-error>
+
+        <mat-error *ngIf="fullName.touched && fullName.errors?.['minlength']">
+          Le nom doit contenir au moins 3 caractères.
+        </mat-error>
+
+      </mat-form-field>
+
+
+      <!-- Age -->
+      <mat-form-field appearance="outline" class="full-width">
+
+        <mat-label>Âge</mat-label>
+
+        <input
+          matInput
+          type="number"
+          name="age"
+          [(ngModel)]="registration.age"
+          #age="ngModel"
+          required
+          min="18"
+          placeholder="Entrez votre âge"
+        />
+
+        <mat-error *ngIf="age.touched && age.errors?.['required']">
+          L'âge est obligatoire.
+        </mat-error>
+
+        <mat-error *ngIf="age.touched && age.errors?.['min']">
+          Vous devez avoir au moins 18 ans.
+        </mat-error>
+
+      </mat-form-field>
+
+
+      <!-- Pays -->
+      <mat-form-field appearance="outline" class="full-width">
+
+        <mat-label>Pays</mat-label>
+
+        <mat-select
+          name="country"
+          [(ngModel)]="registration.country"
+          #country="ngModel"
+          required
+        >
+
+          <mat-option value="" disabled>
+            Choisir un pays
+          </mat-option>
+
+          <mat-option value="France">France</mat-option>
+          <mat-option value="Belgique">Belgique</mat-option>
+          <mat-option value="Suisse">Suisse</mat-option>
+          <mat-option value="Canada">Canada</mat-option>
+
+        </mat-select>
+
+        <mat-error *ngIf="country.touched && country.errors?.['required']">
+          Veuillez sélectionner un pays.
+        </mat-error>
+
+      </mat-form-field>
+
+
+      <!-- Email -->
+      <mat-form-field appearance="outline" class="full-width">
+
+        <mat-label>Email</mat-label>
+
+        <input
+          matInput
+          type="email"
+          name="email"
+          [(ngModel)]="registration.email"
+          #email="ngModel"
+          required
+          email
+          placeholder="exemple@gmail.com"
+        />
+
+        <mat-error *ngIf="email.touched && email.errors?.['required']">
+          L'email est obligatoire.
+        </mat-error>
+
+        <mat-error *ngIf="email.touched && email.errors?.['email']">
+          Veuillez saisir une adresse email valide.
+        </mat-error>
+
+      </mat-form-field>
+
+
+      <!-- Bouton -->
+      <div class="actions">
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="registrationForm.invalid"
+        >
+          S'inscrire
+        </button>
+
+      </div>
+
+    </form>
+
+
+    <!-- Résultat après inscription -->
+    <div class="success" *ngIf="submittedData">
+
+      <h3>Inscription réussie !</h3>
+
+      <pre>{{ submittedData | json }}</pre>
+
+    </div>
+
+  </mat-card-content>
+
+</mat-card>
